@@ -2,7 +2,12 @@ class Api::V1::GasStationsController < ApplicationController
 
     def index
         gas_stations = GasStation.all
-        render json: gas_stations
+        options = {
+            # include associated state
+            include: [:state]
+        }
+         #render json: gas_stations
+        render json: GasStationSerializer.new(gas_stations, options)
     end
 
     def create
